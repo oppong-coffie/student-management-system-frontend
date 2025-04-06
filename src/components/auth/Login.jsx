@@ -26,23 +26,26 @@ export default function Login() {
 
         if (!response.ok) {
             const errorResult = await response.json();
-            alert(errorResult.message);
+            alert(errorResult.message || "Login failed");
             return;
         }
 
         const result = await response.json();
         console.log("Login Response:", result);
 
+        // ✅ Destructure role from result
+        const { id, name, email, role } = result;
+
+        if (!role) {
+            alert("Role not assigned to this user.");
+            return;
+        }
+
         // ✅ Store user details in localStorage
-        localStorage.setItem("user", JSON.stringify({
-            id: result.id,
-            name: result.name,
-            role: result.role,
-            email: result.email
-        }));
+        localStorage.setItem("user", JSON.stringify({ id, name, email, role }));
 
         // ✅ Navigate Based on Role
-        switch (result.role) {
+        switch (role) {
             case "student":
                 navigate("/dashboard/student");
                 break;
@@ -56,6 +59,7 @@ export default function Login() {
                 alert("Unknown role!");
         }
 
+        // ✅ Reset form
         setFormData({ email: "", password: "" });
 
     } catch (error) {
@@ -63,6 +67,7 @@ export default function Login() {
         alert("Something went wrong!");
     }
 };
+
 
 
 
