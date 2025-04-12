@@ -3,6 +3,8 @@ import { Table, Input, Button, Modal, List, Select, Popconfirm, message } from "
 import axios from "axios";
 
 export default function Assignments() {
+  const { Option } = Select;
+
   const [assignments, setAssignments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [issubmitModalOpen, setIssubmitModalOpen] = useState(false);
@@ -197,9 +199,9 @@ export default function Assignments() {
                   className="mt-2 w-full"
                 >
                   {q.options.map((opt, i) => (
-                    <Select.Option key={i} value={opt}>
+                    <Option key={i} value={opt}>
                       {opt}
-                    </Select.Option>
+                    </Option>
                   ))}
                 </Select>
               </div>
@@ -234,15 +236,19 @@ export default function Assignments() {
           className="mt-2 w-full"
         >
           {newQuestion.options.map((opt, i) => (
-            <Select.Option key={i} value={opt}>
+            <Option key={i} value={opt}>
               {opt}
-            </Select.Option>
+            </Option>
           ))}
         </Select>
 
-        <Button onClick={addQuestion} className="bg-blue-500 text-white w-full mt-2">
-          Add Another Question
-        </Button>
+        <Button
+  onClick={addQuestion}
+  className="bg-blue-500 text-white w-full mt-2"
+  disabled={!newQuestion.question || !newQuestion.correctOption}
+>
+  Add Another Question
+</Button>
       </Modal>
 
 {/* START:: Submission modal */}

@@ -34,7 +34,7 @@ export default function Login() {
         console.log("Login Response:", result);
 
         // ✅ Destructure role from result
-        const { id, name, email, role } = result;
+        const { id, name, email, role, indexnumber } = result;
 
         if (!role) {
             alert("Role not assigned to this user.");
@@ -42,7 +42,7 @@ export default function Login() {
         }
 
         // ✅ Store user details in localStorage
-        localStorage.setItem("user", JSON.stringify({ id, name, email, role }));
+        localStorage.setItem("user", JSON.stringify({ id, name, email, role, indexnumber }));
 
         // ✅ Navigate Based on Role
         switch (role) {
