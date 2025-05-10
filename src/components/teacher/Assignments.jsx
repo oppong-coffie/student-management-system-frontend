@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
-import { Table, Input, Button, Modal, List, Select, Popconfirm, message } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Modal,
+  List,
+  Select,
+  Popconfirm,
+  message,
+  DatePicker
+} from "antd";
 import axios from "axios";
+import moment from "moment";
 
 export default function Assignments() {
   const { Option } = Select;
@@ -8,12 +19,11 @@ export default function Assignments() {
   const [assignments, setAssignments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [issubmitModalOpen, setIssubmitModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("create"); // 'create', 'edit'
+  const [modalType, setModalType] = useState("create");
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [newAssignment, setNewAssignment] = useState({ title: "", dueDate: "", questions: [] });
   const [newQuestion, setNewQuestion] = useState({ question: "", options: ["", "", "", ""], correctOption: "" });
 
-  // Fetch Assignments from the database
   useEffect(() => {
     fetchAssignments();
   }, []);
@@ -32,6 +42,7 @@ export default function Assignments() {
     setModalType("create");
     setSelectedAssignment(null);
     setNewAssignment({ title: "", dueDate: "", questions: [] });
+    setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
     setIsModalOpen(true);
   };
 
@@ -44,17 +55,19 @@ export default function Assignments() {
 
   const openSubmitModal = (assignment) => {
     setSelectedAssignment(assignment);
-    setNewAssignment({ ...assignment });
     setIssubmitModalOpen(true);
   };
 
   const addQuestion = () => {
-    if (newQuestion.question.trim() !== "" && newQuestion.correctOption) {
+    if (
+      newQuestion.question.trim() !== "" &&
+      newQuestion.correctOption &&
+      newQuestion.options.every(opt => opt.trim() !== "")
+    ) {
       setNewAssignment({
         ...newAssignment,
         questions: [...newAssignment.questions, newQuestion]
       });
-      // Reset for new question input
       setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
     }
   };
@@ -68,8 +81,10 @@ export default function Assignments() {
   const handleSave = async () => {
     try {
       const method = modalType === "edit" ? "PUT" : "POST";
-      const url = modalType === "edit" ? `http://localhost:3000/teachers/editassignments/${selectedAssignment._id}` : "http://localhost:3000/teachers/postassignments";
-      
+      const url = modalType === "edit"
+        ? `http://localhost:3000/teachers/editassignments/${selectedAssignment._id}`
+        : "http://localhost:3000/teachers/postassignments";
+
       await axios({
         method,
         url,
@@ -107,22 +122,22 @@ export default function Assignments() {
       <Table
         columns={[
           { title: "Title", dataIndex: "title", key: "title" },
-          { title: "Due Date", dataIndex: "dueDate", key: "dueDate" },
+          {
+            title: "Due Date",
+            dataIndex: "dueDate",
+            key: "dueDate",
+            render: (date) => new Date(date).toLocaleDateString()
+          },
           {
             title: "Submissions",
             dataIndex: "submissions",
             key: "submissions",
-            render: (submissions, record) => (
-              <span 
-                className="text-blue-600 cursor-pointer"
-                onClick={() => openSubmitModal(record)}
-              >
-                {submissions.length}
+            render: (_, record) => (
+              <span className="text-blue-600 cursor-pointer" onClick={() => openSubmitModal(record)}>
+                {record.submissions?.length || 0}
               </span>
-            ),
-          }
-          
-          ,
+            )
+          },
           {
             title: "Actions",
             key: "actions",
@@ -138,7 +153,9 @@ export default function Assignments() {
                   title="Are you sure to delete this assignment?"
                   onConfirm={() => deleteAssignment(record._id)}
                 >
-                  <Button type="link" danger>Delete</Button>
+                  <Button type="link" danger>
+                    Delete
+                  </Button>
                 </Popconfirm>
               </div>
             )
@@ -146,24 +163,30 @@ export default function Assignments() {
         ]}
         dataSource={assignments}
         rowKey="_id"
+        pagination={{ pageSize: 5 }}
       />
 
       <Modal
         title={modalType === "edit" ? "Edit Assignment" : "Create Assignment"}
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
+        }}
         onOk={handleSave}
+        width={800}
       >
         <Input
           placeholder="Assignment Title"
           value={newAssignment.title}
           onChange={(e) => setNewAssignment({ ...newAssignment, title: e.target.value })}
         />
-        <Input
-          placeholder="Due Date (YYYY-MM-DD)"
-          value={newAssignment.dueDate}
-          onChange={(e) => setNewAssignment({ ...newAssignment, dueDate: e.target.value })}
-          className="mt-2"
+        <DatePicker
+          className="mt-2 w-full"
+          value={newAssignment.dueDate ? moment(newAssignment.dueDate) : null}
+          onChange={(date, dateString) =>
+            setNewAssignment({ ...newAssignment, dueDate: dateString })
+          }
         />
 
         <h3 className="text-lg font-semibold mt-4">Questions:</h3>
@@ -243,38 +266,41 @@ export default function Assignments() {
         </Select>
 
         <Button
-  onClick={addQuestion}
-  className="bg-blue-500 text-white w-full mt-2"
-  disabled={!newQuestion.question || !newQuestion.correctOption}
->
-  Add Another Question
-</Button>
+          onClick={addQuestion}
+          className="bg-blue-500 text-white w-full mt-2"
+          disabled={
+            !newQuestion.question ||
+            !newQuestion.correctOption ||
+            newQuestion.options.some(opt => !opt.trim())
+          }
+        >
+          Add Another Question
+        </Button>
       </Modal>
 
-{/* START:: Submission modal */}
-<Modal
-  title="Submission List"
-  open={issubmitModalOpen}
-  onCancel={() => setIssubmitModalOpen(false)}
-  onOk={() => setIssubmitModalOpen(false)}
->
-  <Table
-    columns={[
-      { title: "Name", dataIndex: "name", key: "name" },
-      { title: "Score", dataIndex: "score", key: "score" },
-    ]}
-    dataSource={assignments.flatMap((assignment) => 
-      assignment.submissions.map((submission) => ({
-        key: submission._id, // Ensure each row has a unique key
-        name: submission.studentName,
-        score: submission.score,
-      }))
-    )}
-    rowKey="key"
-  />
-</Modal>
-
-
+      {/* Submission Modal */}
+      <Modal
+        title="Submission List"
+        open={issubmitModalOpen}
+        onCancel={() => setIssubmitModalOpen(false)}
+        onOk={() => setIssubmitModalOpen(false)}
+      >
+        <Table
+          columns={[
+            { title: "Name", dataIndex: "name", key: "name" },
+            { title: "Score", dataIndex: "score", key: "score" },
+          ]}
+          dataSource={
+            selectedAssignment?.submissions?.map((submission) => ({
+              key: submission._id,
+              name: submission.studentName,
+              score: submission.score,
+            })) || []
+          }
+          rowKey="key"
+          pagination={false}
+        />
+      </Modal>
     </div>
   );
 }
