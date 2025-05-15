@@ -99,8 +99,9 @@ export default function ParentDashboard() {
         />
         <DashboardCard
           icon={<MessageOutlined />}
-          title="Messages"
-          description="Read teacher and school messages."
+          title="Resources"
+          description="Read teacher and school Study Materials."
+          link="resources"
         />
      <DashboardCard
   icon={<ExclamationCircleOutlined />}

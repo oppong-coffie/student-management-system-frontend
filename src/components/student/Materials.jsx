@@ -1,76 +1,71 @@
-import { useState } from "react";
-import { Input, Tabs, Card, Button } from "antd";
-import { FilePdfOutlined, PlayCircleOutlined, FileTextOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const { TabPane } = Tabs;
-
-const studyMaterials = {
-  pdfs: [
-    { title: "Mathematics Basics", link: "#" },
-    { title: "Physics Notes", link: "#" },
-    { title: "Introduction to Programming", link: "#" },
-  ],
-  videos: [
-    { title: "Algebra Tutorial", link: "#" },
-    { title: "Physics Motion Concepts", link: "#" },
-    { title: "React.js Crash Course", link: "#" },
-  ],
-  notes: [
-    { title: "History Summary", link: "#" },
-    { title: "Economics Key Points", link: "#" },
-    { title: "AI & Machine Learning Overview", link: "#" },
-  ],
+const StudentStudyResources = () => {
+  const [materials, setMaterials] = useState([]);
+ // START:: Fetch all study resources
+ const fetchMaterials = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/teachers/study-materials");
+    console.log("API response:", res.data);
+    setMaterials(res.data);
+  } catch (err) {
+    console.error("Failed to fetch materials:", err);
+    setError("Failed to load study materials. Please try again later.");
+  } finally {
+    setLoading(false);
+  }
 };
 
-export default function StudyMaterials() {
-  const [search, setSearch] = useState("");
-
-  const handleSearch = (e) => {
-    setSearch(e.target.value.toLowerCase());
-  };
-
-  const filterMaterials = (materials) => {
-    return materials.filter((item) => item.title.toLowerCase().includes(search));
-  };
+useEffect(() => {
+  fetchMaterials();
+}, []);
+// END:: Fetch all study resources
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold text-[#1C2D6B] text-center">Study Materials</h1>
-      <div className="max-w-2xl mx-auto my-4">
-        <Input placeholder="Search materials..." onChange={handleSearch} className="p-2" />
+    <div className="min-h-screen bg-blue-50 py-10 px-6">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+          📚 Study Resources
+        </h1>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {materials.map((mat) => (
+            <div
+              key={mat._id}
+              className="bg-white border border-yellow-300 rounded-xl shadow-md p-5 transition hover:shadow-lg"
+            >
+              <h2 className="text-xl font-semibold text-blue-800 mb-1">
+                {mat.title}
+              </h2>
+              <p className="text-sm text-yellow-700 font-medium mb-2">
+                Subject: {mat.subject}
+              </p>
+              <p className="text-gray-700 text-sm mb-4">{mat.description}</p>
+
+              <div className="w-full flex justify-center">
+  <a
+    href={`http://localhost:3000${mat.fileUrl}`}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2 rounded-md shadow transition duration-200"
+  >
+    View Resource
+  </a>
+</div>
+
+            </div>
+          ))}
+        </div>
+
+        {materials.length === 0 && (
+          <p className="text-center text-gray-600 mt-10">
+            No study materials available at the moment.
+          </p>
+        )}
       </div>
-      <Tabs defaultActiveKey="1" centered>
-        <TabPane tab={<span><FilePdfOutlined /> PDFs</span>} key="1">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {filterMaterials(studyMaterials.pdfs).map((item, index) => (
-              <Card key={index} className="shadow-lg">
-                <h3 className="font-semibold">{item.title}</h3>
-                <Button type="primary" className="mt-2" href={item.link} target="_blank">Download</Button>
-              </Card>
-            ))}
-          </div>
-        </TabPane>
-        <TabPane tab={<span><PlayCircleOutlined /> Videos</span>} key="2">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {filterMaterials(studyMaterials.videos).map((item, index) => (
-              <Card key={index} className="shadow-lg">
-                <h3 className="font-semibold">{item.title}</h3>
-                <Button type="primary" className="mt-2" href={item.link} target="_blank">Watch</Button>
-              </Card>
-            ))}
-          </div>
-        </TabPane>
-        <TabPane tab={<span><FileTextOutlined /> Notes</span>} key="3">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {filterMaterials(studyMaterials.notes).map((item, index) => (
-              <Card key={index} className="shadow-lg">
-                <h3 className="font-semibold">{item.title}</h3>
-                <Button type="primary" className="mt-2" href={item.link} target="_blank">View</Button>
-              </Card>
-            ))}
-          </div>
-        </TabPane>
-      </Tabs>
     </div>
   );
-}
+};
+
+export default StudentStudyResources;

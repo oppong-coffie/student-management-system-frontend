@@ -32,13 +32,13 @@ export default function Navbar() {
         <NavLink to="/dashboard/teacher" end className={linkClasses}>
           <HomeOutlined /> Home
         </NavLink>
-        <NavLink to="/classes" className={linkClasses}>
-          <BookOutlined /> Classes
+        <NavLink to="/dashboard/teacher/manageclass" className={linkClasses}>
+          <BookOutlined /> Class List
         </NavLink>
         <NavLink to="/dashboard/teacher/assignments" className={linkClasses}>
           <FileTextOutlined /> Assignments
         </NavLink>
-        <NavLink to="/resources" className={linkClasses}>
+        <NavLink to="/dashboard/teacher/resources" className={linkClasses}>
           <FolderOpenOutlined /> Resources
         </NavLink>
         <NavLink to="/logout" className={linkClasses}>

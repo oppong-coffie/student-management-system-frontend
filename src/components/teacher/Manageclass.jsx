@@ -1,79 +1,84 @@
-import { useState } from "react";
-import { Table, Button, Modal, Form, Input, Select, Space, Popconfirm } from "antd";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export default function ManageClasses() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
-  const [classes, setClasses] = useState([
-    { key: "1", name: "Math 101", grade: "Grade 9", subject: "Mathematics" },
-    { key: "2", name: "Science 202", grade: "Grade 10", subject: "Physics" },
-  ]);
+export default function ManageStudentsPage({ classId }) {
+  const [students, setStudents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Function to handle adding a new class
-  const handleAddClass = () => {
-    form.validateFields().then(values => {
-      const newClass = { key: (classes.length + 1).toString(), ...values };
-      setClasses([...classes, newClass]);
-      setIsModalOpen(false);
-      form.resetFields();
-    });
-  };
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/teachers/students`);
+        setStudents(res.data);
+      } catch (err) {
+        console.error('Error fetching students:', err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStudents();
+  },[]);
 
-  // Function to handle deleting a class
-  const handleDelete = (key) => {
-    setClasses(classes.filter(cls => cls.key !== key));
-  };
-
-  const columns = [
-    { title: "Class Name", dataIndex: "name", key: "name" },
-    { title: "Grade", dataIndex: "grade", key: "grade" },
-    { title: "Subject", dataIndex: "subject", key: "subject" },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <Space>
-          <Popconfirm title="Are you sure?" onConfirm={() => handleDelete(record.key)}>
-            <Button danger>Delete</Button>
-          </Popconfirm>
-        </Space>
-      ),
-    },
-  ];
+  const filteredStudents = students.filter((student) =>
+    student?.name?.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
+    student?.indexnumber?.toLowerCase().includes(searchTerm.trim().toLowerCase())
+  );
+  
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Manage Classes</h1>
-      
-      <Button type="primary" onClick={() => setIsModalOpen(true)} className="mb-4">
-        + Add New Class
-      </Button>
-
-      <Table columns={columns} dataSource={classes} bordered />
-
-      {/* Add Class Modal */}
-      <Modal
-        title="Add New Class"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        onOk={handleAddClass}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item name="name" label="Class Name" rules={[{ required: true }]}>
-            <Input placeholder="Enter class name" />
-          </Form.Item>
-          <Form.Item name="grade" label="Grade" rules={[{ required: true }]}>
-            <Select placeholder="Select grade">
-              <Select.Option value="Grade 9">Grade 9</Select.Option>
-              <Select.Option value="Grade 10">Grade 10</Select.Option>
-              <Select.Option value="Grade 11">Grade 11</Select.Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="subject" label="Subject" rules={[{ required: true }]}>
-            <Input placeholder="Enter subject" />
-          </Form.Item>
-        </Form>
-      </Modal>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50 p-6 md:p-10">
+    <div className="max-w-4xl mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-blue-800">👨‍🎓 Enrolled Students</h1>
+        <button
+          onClick={() => navigate('../addstudent')}
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          ➕ Add Student
+        </button>
+      </div>
+  
+      <input
+        type="text"
+        placeholder="Search by name or index number..."
+        className="w-full mb-6 px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+  
+      {loading ? (
+        <p className="text-center text-blue-700">Loading students...</p>
+      ) : filteredStudents.length === 0 ? (
+        <p className="text-center text-gray-600">No matching students found.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-yellow-300 rounded-xl shadow-md">
+            <thead>
+              <tr className="bg-yellow-100 text-blue-800">
+                <th className="py-3 px-4 text-left">Name</th>
+                <th className="py-3 px-4 text-left">Index Number</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStudents.map((student) => (
+                <tr
+                  key={student._id}
+                  className="border-t border-gray-200 hover:bg-yellow-50 cursor-pointer"
+                  onClick={() => navigate(`../studentdetails/${student._id}`)}
+                >
+                  <td className="py-3 px-4">{student.name}</td>
+                  <td className="py-3 px-4">{student.indexnumber}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
+  </div>
+  
   );
 }

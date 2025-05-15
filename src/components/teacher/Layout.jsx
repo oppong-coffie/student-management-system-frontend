@@ -15,7 +15,7 @@ export default function TeacherDashboard() {
 
       {/* Footer */}
       <footer className="bg-[#1C2D6B] text-white text-center py-4">
-        <span className="text-[#FFD700]">©2025 Takoradi Technical University.</span> All rights reserved.
+        <span className="text-[#FFD700]">©2025 Wood Bridge International Schoo.</span> All rights reserved.
       </footer>
     </div>
   );
