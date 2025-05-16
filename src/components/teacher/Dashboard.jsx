@@ -37,6 +37,13 @@ export default function TeachersDashboard() {
             <Button className="mt-4 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] transition">Upload</Button>
           </Link>
         </div>
+        <div className="p-6 bg-white shadow-lg rounded-lg text-center border-t-4 border-[#FFD700]">
+          <h2 className="text-lg font-semibold">📖 Time Table</h2>
+          <p className="text-gray-500">Upload and manage study resources.</p>
+          <Link to="teachertimetable">
+            <Button className="mt-4 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] transition">Upload</Button>
+          </Link>
+        </div>
       </section>
 
     </div>

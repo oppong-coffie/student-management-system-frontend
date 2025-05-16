@@ -46,7 +46,7 @@ export default function EnrollStudentForm({ classId }) {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/teachers/live-classes/${classId}/students`,
+        `http://localhost:3000/teachers/students`,
         formData
       );
       setSuccessMsg('Student enrolled successfully!');

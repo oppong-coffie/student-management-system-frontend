@@ -84,8 +84,9 @@ export default function ParentDashboard() {
         />
         <DashboardCard
           icon={<CalendarOutlined />}
-          title="Class Schedule"
+          title="Class Time Table"
           description="Check upcoming lessons & exams."
+          link="parenttimetable"
         />
         <DashboardCard
           icon={<UserSwitchOutlined />}

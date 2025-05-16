@@ -3,14 +3,17 @@ import Login from './components/auth/Login.jsx';
 import StudentLayout from './components/student/Layout.jsx';
 import StudentLiveClassesPage from './components/student/StudentLiveClassesPage.jsx';
 import StudentHome from "./components/student/Dashboard.jsx";
+import StudentTimetablePage from "./components/student/StudentTimetablePage.jsx";
 import StudentAssignments from "./components/student/Assignments.jsx";
 import Materials from "./components/student/Materials.jsx";
 import ParentDashboard from './components/parent/Dashboard.jsx';
 import ParentMaterialsPage from "./components/parent/Resources.jsx";
+import ParentTimetablePage from "./components/parent/ParentTimetablePage.jsx";
 import TeacherDashboard from './components/teacher/Layout.jsx';
 import Resources from './components/teacher/Resources.jsx';
 import UploadResource from './components/teacher/UploadResources.jsx';
 import Addstudent from './components/teacher/EnrolForms.jsx';
+import EditableTimetablePage from './components/teacher/Timetable.jsx';
 import Manageclass from './components/teacher/Manageclass.jsx';
 import Assignments from './components/teacher/Assignments.jsx';
 import Dashboard from './components/teacher/Dashboard.jsx';
@@ -38,6 +41,7 @@ function App() {
       <Route path="addliveclass" element={<TeacherAddLiveClasses />} />
       <Route path="studentdetails/:id" element={<DetailledStudent />} />
       <Route path="addstudent" element={<Addstudent />} />
+      <Route path="teachertimetable" element={<EditableTimetablePage  />} />
     </Route>
 
     {/* Student Dashboard with Nested Routes */}
@@ -46,6 +50,7 @@ function App() {
       <Route path="assignments" element={<StudentAssignments />} />
       <Route path="materials" element={<Materials />} />
       <Route path="classroom" element={<StudentLiveClassesPage />} />
+      <Route path="studenttimetable" element={<StudentTimetablePage />} />
     </Route>
 
     {/* Parent Dashboard */}
@@ -53,6 +58,7 @@ function App() {
     <Route index element={<ParentDashboard />} />
     <Route path="parentassignments" element={<Parentassignment />} />
     <Route path="resources" element={<ParentMaterialsPage />} />
+    <Route path="parenttimetable" element={<ParentTimetablePage />} />
     </Route>
   </Routes>
 </Router>

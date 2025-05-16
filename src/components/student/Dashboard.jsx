@@ -30,7 +30,7 @@ export default function StudentHome() {
       {/* Quick Actions */}
       <section className="py-12 px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <FeatureCard icon={<FileDoneOutlined />} title="Academic Results" description="View your grades and performance reports." link="results" />
-        <FeatureCard icon={<CalendarOutlined />} title="Class Timetable" description="Check your scheduled classes and exams." link="timetable" />
+        <FeatureCard icon={<CalendarOutlined />} title="Class Timetable" description="Check your scheduled classes and exams." link="studenttimetable" />
         <FeatureCard icon={<SolutionOutlined />} title="Teacher Activities" description="Stay updated on teacher announcements." link="activities" />
         <FeatureCard icon={<VideoCameraOutlined />} title="Video Tutorials" description="Watch educational videos on various subjects." link="tutorials" />
         <FeatureCard icon={<ReadOutlined />} title="Study Materials" description="Download lecture notes and resources." link="materials" />
