@@ -14,9 +14,10 @@ const Navbar = () => {
       {/* Navigation Links */}
       <div className="space-x-6 hidden md:flex">
         <Link to="/dashboard/student" className="hover:text-[#FFD700] transition">Dashboard</Link>
-        <Link to="/dashboard/student/profile" className="hover:text-[#FFD700] transition">Profile</Link>
+        <Link to="/dashboard/student/materials" className="hover:text-[#FFD700] transition">Resources</Link>
         <Link to="/dashboard/student/results" className="hover:text-[#FFD700] transition">Results</Link>
         <Link to="/dashboard/student/timetable" className="hover:text-[#FFD700] transition">Timetable</Link>
+        <Link to="/dashboard/student/assignments" className="hover:text-[#FFD700] transition">Assignments</Link>
         <Link to="/" className="hover:text-[#FFD700] transition">Logout</Link>
       </div>
     </nav>

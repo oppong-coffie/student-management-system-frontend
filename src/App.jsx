@@ -4,16 +4,21 @@ import StudentLayout from './components/student/Layout.jsx';
 import StudentLiveClassesPage from './components/student/StudentLiveClassesPage.jsx';
 import StudentHome from "./components/student/Dashboard.jsx";
 import StudentTimetablePage from "./components/student/StudentTimetablePage.jsx";
+import StudentResultsPage from "./components/student/StudentResultsPage.jsx";
 import StudentAssignments from "./components/student/Assignments.jsx";
 import Materials from "./components/student/Materials.jsx";
 import ParentDashboard from './components/parent/Dashboard.jsx';
+import ParentResult from './components/parent/ParentResultsPage.jsx'
+import ParentAttendancePage from './components/parent/ParentAttendancePage.jsx'
 import ParentMaterialsPage from "./components/parent/Resources.jsx";
 import ParentTimetablePage from "./components/parent/ParentTimetablePage.jsx";
 import TeacherDashboard from './components/teacher/Layout.jsx';
+import Notifications from './components/teacher/TeacherNotificationPage.jsx';
 import Resources from './components/teacher/Resources.jsx';
 import UploadResource from './components/teacher/UploadResources.jsx';
 import Addstudent from './components/teacher/EnrolForms.jsx';
 import EditableTimetablePage from './components/teacher/Timetable.jsx';
+import Results from './components/teacher/TeacherUploadResults.jsx';
 import Manageclass from './components/teacher/Manageclass.jsx';
 import Assignments from './components/teacher/Assignments.jsx';
 import Dashboard from './components/teacher/Dashboard.jsx';
@@ -23,6 +28,7 @@ import Parentassignment from './components/parent/Assignments.jsx';
 import './App.css';
 import TeacherLiveClasses from "./components/teacher/Liveclass.jsx";
 import TeacherAddLiveClasses from "./components/teacher/Addliveclass.jsx";
+import TeacherAttendancePage from "./components/teacher/TeacherAttendancePage.jsx";
 
 function App() {
   return (
@@ -42,6 +48,9 @@ function App() {
       <Route path="studentdetails/:id" element={<DetailledStudent />} />
       <Route path="addstudent" element={<Addstudent />} />
       <Route path="teachertimetable" element={<EditableTimetablePage  />} />
+      <Route path="notifications" element={<Notifications  />} />
+      <Route path="results" element={<Results  />} />
+      <Route path="attendance" element={<TeacherAttendancePage />} />
     </Route>
 
     {/* Student Dashboard with Nested Routes */}
@@ -51,6 +60,7 @@ function App() {
       <Route path="materials" element={<Materials />} />
       <Route path="classroom" element={<StudentLiveClassesPage />} />
       <Route path="studenttimetable" element={<StudentTimetablePage />} />
+      <Route path="studentresult" element={<StudentResultsPage />} />
     </Route>
 
     {/* Parent Dashboard */}
@@ -59,6 +69,8 @@ function App() {
     <Route path="parentassignments" element={<Parentassignment />} />
     <Route path="resources" element={<ParentMaterialsPage />} />
     <Route path="parenttimetable" element={<ParentTimetablePage />} />
+    <Route path="parentresult" element={<ParentResult />} />
+    <Route path="parentattendance" element={<ParentAttendancePage />} />
     </Route>
   </Routes>
 </Router>
