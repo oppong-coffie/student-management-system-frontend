@@ -39,6 +39,7 @@ export default function EditableResultsTable() {
         });
 
         setResults(init);
+        console.log(studentsData)
       } catch (err) {
         console.error('Error fetching data:', err);
       }
@@ -63,6 +64,8 @@ export default function EditableResultsTable() {
   const handleSave = async () => {
     const formattedResults = students.map(student => ({
       studentId: student._id,
+      studentPhone: student.phone || '',
+      parentPhone: student.parent?.phone || '',
       ...results[student._id],
     }));
 
