@@ -58,7 +58,7 @@ export default function ParentAttendancePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-white py-10 px-4">
+    <div className="bg-gradient-to-br from-yellow-50 to-white py-12 px-4">
       <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl p-8">
         <h1 className="text-4xl font-bold text-center text-blue-800 mb-8">
           📅 My Child's Attendance

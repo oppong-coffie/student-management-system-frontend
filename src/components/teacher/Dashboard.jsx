@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 export default function TeachersDashboard() {
   return (
     <div className="">
-      {/* Navbar */}
-
       {/* Dashboard Actions */}
-      <section className="py-12 px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="py-10 px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="p-6 bg-white shadow-lg rounded-lg text-center border-t-4 border-[#FFD700]">
           <h2 className="text-lg font-semibold">📚 Manage Class</h2>
           <p className="text-gray-500">Enroll and manage your classroom members.</p>

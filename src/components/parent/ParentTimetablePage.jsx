@@ -24,10 +24,10 @@ const ParentTimetablePage = () => {
   },[]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 p-6">
-      <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-xl border border-indigo-200 p-6">
-        <div className="mb-6">
-          <h1 className="text-4xl font-bold text-indigo-800 text-center mb-2">🧒🏽 Your Child’s Timetable</h1>
+    <div className="bg-gradient-to-br from-purple-50 to-indigo-100">
+      <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-xl border border-indigo-200">
+        <div className="">
+          <h1 className="text-4xl font-bold text-indigo-800 text-center">🧒🏽 Your Child’s Timetable</h1>
           <p className="text-center text-indigo-600 text-lg">Monitor academic schedules effortlessly</p>
         </div>
 

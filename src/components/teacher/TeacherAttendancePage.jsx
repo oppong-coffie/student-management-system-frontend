@@ -59,7 +59,7 @@ export default function TeacherAttendancePage() {
   if (loading) return <div className="p-6 text-blue-600">Loading students...</div>;
 
   return (
-    <div className="p-6 bg-blue-50 min-h-screen">
+    <div className="p-6 bg-blue-50">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-blue-900 mb-6">
           📋 Student Attendance for <span className="text-yellow-500">{today}</span>

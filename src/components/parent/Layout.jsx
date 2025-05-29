@@ -123,7 +123,7 @@ export default function ParentLayout() {
         <Outlet />
       </main>
 
-      <footer className="bg-[#1C2D6B] text-white text-center py-4 mt-10">
+      <footer className="bg-[#1C2D6B] text-white text-center py-4 mt-1">
         <span className="text-yellow-400">©2025 Wood Bridge International School</span>. All rights reserved.
       </footer>
 

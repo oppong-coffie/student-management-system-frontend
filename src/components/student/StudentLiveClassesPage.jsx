@@ -21,7 +21,7 @@ export default function StudentLiveClassesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50 p-6 md:p-10">
+    <div className="bg-gradient-to-br from-blue-50 to-yellow-50 p-6 md:p-10">
     <div className="max-w-6xl mx-auto">
       <h1 className="text-4xl font-extrabold text-blue-800 mb-10 text-center">
         📚 Upcoming Live Classes

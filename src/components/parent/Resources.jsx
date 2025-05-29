@@ -33,11 +33,11 @@ export default function ParentStudyMaterials() {
   }, [search, materials])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-blue-50 to-blue-100 px-4 sm:px-6 lg:px-8">
     <div className="max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-bold text-blue-800 flex items-center gap-2">
+      <div className="flex items-center justify-between mb-1">
+        <h1 className="text-3xl font-bold text-blue-800 flex items-center gap-9">
           <span className="text-yellow-500">📚</span> Study Materials <span className="text-yellow-400">👨‍👩‍👧</span>
         </h1>
       </div>
@@ -55,21 +55,21 @@ export default function ParentStudyMaterials() {
       </div>
   
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {filtered.length > 0 ? (
           filtered.map((material) => (
             <div
               key={material.id}
               className="bg-white border border-yellow-300 rounded-xl p-6 shadow hover:shadow-lg transition"
             >
-              <h3 className="text-xl font-semibold text-blue-900 mb-2">📘 {material.title}</h3>
+              <h3 className="text-xl font-semibold text-blue-900">📘 {material.title}</h3>
               <p className="text-gray-700"><strong>📖 Subject:</strong> {material.subject}</p>
               <p className="text-gray-700"><strong>📂 Description:</strong> {material.description}</p>
               <a
                 href={material.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-4 px-4 py-2 bg-yellow-400 text-blue-900 font-semibold rounded hover:bg-yellow-500 transition"
+                className="inline-block mt-4 px-4 py-1 bg-yellow-400 text-blue-900 font-semibold rounded hover:bg-yellow-500 transition"
               >
                 📥 View / Download
               </a>

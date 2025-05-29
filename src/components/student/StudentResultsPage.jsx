@@ -45,7 +45,7 @@ export default function StudentResultsPage() {
   if (!student) return <div className="p-6 text-blue-600">No data found.</div>;
 
   return (
-    <div className="p-6 bg-blue-50 min-h-screen">
+    <div className="p-6 bg-blue-50">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 border border-blue-200">
         <h2 className="text-3xl font-bold text-blue-800 mb-6">
           Results for <span className="text-yellow-500">{student.name}</span>

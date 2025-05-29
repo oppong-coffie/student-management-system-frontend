@@ -23,9 +23,9 @@ useEffect(() => {
 // END:: Fetch all study resources
 
   return (
-    <div className="min-h-screen bg-blue-50 py-10 px-6">
+    <div className="bg-blue-50 py-1 px-6">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-blue-900 mb-8 text-center">
+        <h1 className="text-3xl font-bold text-blue-900 mb-5 text-center">
           📚 Study Resources
         </h1>
 

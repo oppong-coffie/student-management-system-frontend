@@ -5,6 +5,7 @@ import StudentLiveClassesPage from './components/student/StudentLiveClassesPage.
 import StudentHome from "./components/student/Dashboard.jsx";
 import StudentTimetablePage from "./components/student/StudentTimetablePage.jsx";
 import StudentResultsPage from "./components/student/StudentResultsPage.jsx";
+import Studentnotifications from "./components/student/Notifications.jsx";
 import StudentAssignments from "./components/student/Assignments.jsx";
 import Materials from "./components/student/Materials.jsx";
 import ParentDashboard from './components/parent/Dashboard.jsx';
@@ -61,6 +62,7 @@ function App() {
       <Route path="classroom" element={<StudentLiveClassesPage />} />
       <Route path="studenttimetable" element={<StudentTimetablePage />} />
       <Route path="studentresult" element={<StudentResultsPage />} />
+      <Route path="studentnotifications" element={<Studentnotifications />} />
     </Route>
 
     {/* Parent Dashboard */}

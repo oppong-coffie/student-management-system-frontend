@@ -46,7 +46,7 @@ export default function StudentHome() {
         <FeatureCard icon={<ReadOutlined />} title="Study Materials" description="Download lecture notes and resources." link="materials" />
         <FeatureCard icon={<VideoCameraOutlined />} title="Join Classroom" description="Attend live video conferences with your lecturers." link="classroom" />
         <FeatureCard icon={<FileTextOutlined />} title="Submit Assignments" description="Upload and submit your assignments." link="assignments" />
-        <FeatureCard icon={<BellOutlined />} title="Notifications" description="Stay updated with announcements and news." link="notifications" />
+        <FeatureCard icon={<BellOutlined />} title="Notifications" description="Stay updated with announcements and news." link="studentnotifications" />
       </section>
     </div>
   );

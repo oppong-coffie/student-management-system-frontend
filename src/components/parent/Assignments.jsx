@@ -37,39 +37,42 @@ export default function Assignments() {
   );
 
   return (
-    <div className="p-6 min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <h1 className="text-3xl font-bold text-[#1C2D6B] mb-8">📘 My Assignments</h1>
-
-      {loading ? (
-        <div className="flex justify-center items-center h-60">
-          <Spin size="large" />
-        </div>
-      ) : filteredAssignments.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAssignments.map((assignment) => (
-            <div
-              key={assignment._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg p-6 border border-gray-100 transition duration-300"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-semibold text-[#1C2D6B]">{assignment.title}</h2>
+    <div className="p-11 bg-gradient-to-br from-blue-50 to-yellow-50">
+    <h1 className="text-3xl font-bold text-blue-900 mb-8">📘 My Child's Assignments</h1>
+  
+    {loading ? (
+      <div className="flex justify-center items-center h-60">
+        <Spin size="large" />
+      </div>
+    ) : filteredAssignments.length > 0 ? (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredAssignments.map((assignment) => (
+          <div
+            key={assignment._id}
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl border-t-4 border-blue-400 transition duration-300"
+          >
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-lg font-semibold text-blue-800">{assignment.title}</h2>
                 <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-md">
                   📅 {assignment.dueDate}
                 </span>
               </div>
-           
-              <div className="mt-4 text-sm text-red-600 font-medium bg-red-50 px-3 py-1 rounded-full w-fit">
+  
+              <div className="mt-4 text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full w-fit">
                 ⏳ Not Submitted
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="text-center mt-24 text-gray-500">
-          <h2 className="text-2xl font-semibold mb-2">🎉 You're All Set!</h2>
-          <p className="text-sm">You have no pending assignments right now.</p>
-        </div>
-      )}
-    </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div className="text-center mt-24 text-blue-800">
+        <h2 className="text-2xl font-semibold mb-2">🎉 You're All Set!</h2>
+        <p className="text-sm text-blue-600">You have no pending assignments right now.</p>
+      </div>
+    )}
+  </div>
+  
   );
 }

@@ -20,13 +20,13 @@ export default function ParentDashboard() {
 
 
       {/* Welcome Section */}
-      <header className="flex-1 flex flex-col items-center justify-center text-center px-6 py-5 bg-white">
+      <header className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-white">
         <h1 className="text-3xl font-bold text-[#1C2D6B]">Welcome, Parent</h1>
         <p className="text-gray-600">Monitor your child's academic journey with ease.</p>
       </header>
 
       {/* Dashboard Overview */}
-      <section className="py-3 px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         <DashboardCard
           icon={<FileDoneOutlined />}
           title="Student Grades"
@@ -66,9 +66,9 @@ export default function ParentDashboard() {
 function DashboardCard({ icon, title, description, link }) {
   return (
     
-    <Card className="shadow-lg rounded-xl text-center border-t-4 border-[#FFD700] p-1 bg-white hover:shadow-xl transition-all">
-    <div className="flex justify-center mb-1">
-      <div className="bg-[#FFD700] text-[#1C2D6B] p-3 rounded-full text-3xl">
+    <Card className="shadow-lg rounded-xl text-center border-t-4 border-[#FFD700] bg-white hover:shadow-xl transition-all">
+    <div className="flex justify-center">
+      <div className="bg-[#FFD700] text-[#1C2D6B] p-3 rounded-full text-xl">
         {icon}
       </div>
     </div>
@@ -76,7 +76,7 @@ function DashboardCard({ icon, title, description, link }) {
     <p className="text-gray-500">{description}</p>
     {link && (
       <Link to={link}>
-        <Button className="mt-2 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] border-none transition">
+        <Button className="mt-1 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] border-none transition">
           View
         </Button>
       </Link>

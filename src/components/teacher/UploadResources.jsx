@@ -56,7 +56,7 @@ export default function AddStudyMaterial() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow-xl rounded-lg mt-10">
+    <div className="max-w-xl mx-auto p-1 bg-white shadow-xl rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Add Study Material</h2>
 
       <form onSubmit={handleUpload} className="space-y-4">

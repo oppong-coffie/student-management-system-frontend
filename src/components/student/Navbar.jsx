@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link to="/dashboard/student" className="hover:text-[#FFD700] transition">Dashboard</Link>
         <Link to="/dashboard/student/materials" className="hover:text-[#FFD700] transition">Resources</Link>
         <Link to="/dashboard/student/results" className="hover:text-[#FFD700] transition">Results</Link>
-        <Link to="/dashboard/student/timetable" className="hover:text-[#FFD700] transition">Timetable</Link>
+        <Link to="/dashboard/student/studenttimetable" className="hover:text-[#FFD700] transition">Timetable</Link>
         <Link to="/dashboard/student/assignments" className="hover:text-[#FFD700] transition">Assignments</Link>
         <Link to="/" className="hover:text-[#FFD700] transition">Logout</Link>
       </div>

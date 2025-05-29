@@ -41,8 +41,8 @@ export default function AddLiveClassPage() {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-yellow-50 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-8 border border-yellow-300">
+    <div className="bg-gradient-to-r from-blue-50 to-yellow-50 flex items-center justify-center px-4 py-1">
+      <div className="w-full max-w-xl bg-white shadow-lg rounded-2xl p-1 border border-yellow-300">
         <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
           Add Live Class
         </h2>

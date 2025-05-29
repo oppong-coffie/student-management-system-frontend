@@ -85,8 +85,8 @@ const EditableTimetablePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50 p-8">
-      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg border border-yellow-300 p-6">
+    <div className="bg-gradient-to-br from-blue-50 to-yellow-50 p-1">
+      <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg border border-yellow-300">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-blue-800">📅 Editable Timetable</h1>
           <div className="flex gap-3">
