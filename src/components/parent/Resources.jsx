@@ -9,7 +9,7 @@ export default function ParentStudyMaterials() {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const res = await fetch('http://localhost:3000/teachers/study-materials')
+        const res = await fetch('student-management-system-backend-production.up.railway.app/teachers/study-materials')
         const data = await res.json()
         setMaterials(data)
         setFiltered(data)

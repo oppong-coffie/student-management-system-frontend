@@ -9,14 +9,14 @@ export default function StudyMaterialsPage() {
   const [editData, setEditData] = useState({ title: "", description: "", subject: "" });
 
   const fetchMaterials = async () => {
-    const res = await axios.get("http://localhost:3000/teachers/study-materials");
+    const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/study-materials");
     console.log("API response:", res.data);
     setMaterials(res.data);
   };  
 
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this material?")) {
-      await axios.delete(`http://localhost:3000/teachers/study-materials/${id}`);
+      await axios.delete(`student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`);
       fetchMaterials();
     }
   };
@@ -36,7 +36,7 @@ export default function StudyMaterialsPage() {
   };
 
   const handleUpdate = async (id) => {
-    await axios.put(`http://localhost:3000/teachers/study-materials/${id}`, editData);
+    await axios.put(`student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`, editData);
     setEditingId(null);
     fetchMaterials();
   };
@@ -105,7 +105,7 @@ export default function StudyMaterialsPage() {
             <p className="text-sm text-yellow-700 font-medium mb-1">Subject: {mat.subject}</p>
             <p className="text-gray-700 text-sm mb-3">{mat.description}</p>
             <a
-              href={`http://localhost:3000${mat.fileUrl}`}
+              href={`student-management-system-backend-production.up.railway.app${mat.fileUrl}`}
               target="_blank"
               rel="noreferrer"
               className="text-blue-600 underline text-sm"

@@ -11,7 +11,7 @@ export default function ManageStudentsPage({ classId }) {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/teachers/students`);
+        const res = await axios.get(`student-management-system-backend-production.up.railway.app/teachers/students`);
         setStudents(res.data);
       } catch (err) {
         console.error('Error fetching students:', err.message);

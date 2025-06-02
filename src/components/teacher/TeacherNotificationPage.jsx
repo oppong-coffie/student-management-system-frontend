@@ -21,7 +21,7 @@ export default function TeacherNotificationPage() {
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/teachers/notifications");
+      const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/notifications");
       setNotifications(res.data);
     } catch (err) {
       message.error("Failed to fetch notifications");
@@ -37,12 +37,12 @@ export default function TeacherNotificationPage() {
     try {
       if (editingId) {
         await axios.put(
-          `http://localhost:3000/teachers/notifications/${editingId}`,
+          `student-management-system-backend-production.up.railway.app/teachers/notifications/${editingId}`,
           values
         );
         message.success("Notification updated!");
       } else {
-        await axios.post("http://localhost:3000/teachers/notifications", values);
+        await axios.post("student-management-system-backend-production.up.railway.app/teachers/notifications", values);
         message.success("Notification posted!");
       }
       form.resetFields();
@@ -65,7 +65,7 @@ export default function TeacherNotificationPage() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/notifications/${id}`);
+      await axios.delete(`student-management-system-backend-production.up.railway.app/api/notifications/${id}`);
       message.success("Notification deleted");
       fetchNotifications();
     } catch (err) {

@@ -28,7 +28,7 @@ export default function ParentLayout() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/parents/notification");
+        const res = await axios.get("student-management-system-backend-production.up.railway.app/parents/notification");
         setNotifications(res.data);
       } catch (err) {
         console.error("Failed to fetch notifications:", err);

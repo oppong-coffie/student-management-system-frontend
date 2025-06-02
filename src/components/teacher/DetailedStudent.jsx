@@ -23,7 +23,7 @@ export default function StudentDetailPage() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/teachers/students/${id}`);
+        const res = await axios.get(`student-management-system-backend-production.up.railway.app/teachers/students/${id}`);
         setStudent(res.data);
         setFormData({
           name: res.data.name || '',
@@ -48,7 +48,7 @@ export default function StudentDetailPage() {
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this student?")) return;
     try {
-      await axios.delete(`http://localhost:3000/teachers/students/${id}`);
+      await axios.delete(`student-management-system-backend-production.up.railway.app/teachers/students/${id}`);
       alert("Student deleted.");
       navigate("../manageclass");
     } catch (error) {
@@ -83,7 +83,7 @@ export default function StudentDetailPage() {
           ...formData.parent
         }
       };
-      const res = await axios.put(`http://localhost:3000/teachers/students/${id}`, updatedData);
+      const res = await axios.put(`student-management-system-backend-production.up.railway.app/teachers/students/${id}`, updatedData);
       setStudent(res.data);
       setIsEditing(false);
       alert("Student details updated successfully.");

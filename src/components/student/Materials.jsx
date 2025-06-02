@@ -6,7 +6,7 @@ const StudentStudyResources = () => {
  // START:: Fetch all study resources
  const fetchMaterials = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/teachers/study-materials");
+    const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/study-materials");
     console.log("API response:", res.data);
     setMaterials(res.data);
   } catch (err) {
@@ -45,7 +45,7 @@ useEffect(() => {
 
               <div className="w-full flex justify-center">
   <a
-    href={`http://localhost:3000${mat.fileUrl}`}
+    href={`student-management-system-backend-production.up.railway.app${mat.fileUrl}`}
     target="_blank"
     rel="noreferrer"
     className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2 rounded-md shadow transition duration-200"

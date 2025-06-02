@@ -21,8 +21,8 @@ const EditableTimetablePage = () => {
     const initialize = async () => {
       try {
         const [subjectsRes, timetableRes] = await Promise.all([
-          axios.get('http://localhost:3000/teachers/subjects'),
-          axios.get('http://localhost:3000/teachers/timetable')
+          axios.get('student-management-system-backend-production.up.railway.app/teachers/subjects'),
+          axios.get('student-management-system-backend-production.up.railway.app/teachers/timetable')
         ]);
 
         setSubjects(subjectsRes.data);
@@ -58,7 +58,7 @@ const EditableTimetablePage = () => {
 
   const handleSave = async () => {
     try {
-      await axios.post('http://localhost:3000/teachers/timetable', { timetable });
+      await axios.post('student-management-system-backend-production.up.railway.app/teachers/timetable', { timetable });
       alert('Timetable saved successfully ✅');
     } catch (error) {
       console.error('Error saving timetable:', error);

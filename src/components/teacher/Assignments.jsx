@@ -30,7 +30,7 @@ export default function Assignments() {
 
   const fetchAssignments = async () => {
     try {
-      const response = await fetch("http://localhost:3000/teachers/getassignments");
+      const response = await fetch("student-management-system-backend-production.up.railway.app/teachers/getassignments");
       const data = await response.json();
       setAssignments(data);
     } catch (error) {
@@ -82,8 +82,8 @@ export default function Assignments() {
     try {
       const method = modalType === "edit" ? "PUT" : "POST";
       const url = modalType === "edit"
-        ? `http://localhost:3000/teachers/editassignments/${selectedAssignment._id}`
-        : "http://localhost:3000/teachers/postassignments";
+        ? `student-management-system-backend-production.up.railway.app/teachers/editassignments/${selectedAssignment._id}`
+        : "student-management-system-backend-production.up.railway.app/teachers/postassignments";
 
       await axios({
         method,
@@ -102,7 +102,7 @@ export default function Assignments() {
 
   const deleteAssignment = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/teachers/deleteassignments/${id}`);
+      await axios.delete(`student-management-system-backend-production.up.railway.app/teachers/deleteassignments/${id}`);
       message.success("Assignment deleted successfully");
       fetchAssignments();
     } catch (error) {

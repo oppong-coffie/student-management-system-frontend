@@ -21,7 +21,7 @@ export default function AddLiveClassPage() {
     setLoading(true);
   
     try {
-      const response = await axios.post("http://localhost:3000/teachers/live-classes", formData);
+      const response = await axios.post("student-management-system-backend-production.up.railway.app/teachers/live-classes", formData);
       alert("Live class created successfully!");
       console.log(response.data);
   

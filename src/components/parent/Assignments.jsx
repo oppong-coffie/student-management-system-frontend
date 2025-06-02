@@ -19,7 +19,7 @@ export default function Assignments() {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/teachers/getassignments");
+        const response = await axios.get("student-management-system-backend-production.up.railway.app/teachers/getassignments");
         setAssignments(response.data);
       } catch (error) {
         message.error("Failed to load assignments.");
