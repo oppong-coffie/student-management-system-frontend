@@ -7,14 +7,14 @@ export default function TeacherAttendancePage() {
   const [today] = useState(new Date().toISOString().split('T')[0]);
 
   useEffect(() => {
-    fetch('student-management-system-backend-production.up.railway.app/teachers/students') // Replace with your actual students endpoint
+    fetch('https://student-management-system-backend-production.up.railway.app/teachers/students') // Replace with your actual students endpoint
       .then(res => res.json())
       .then(data => {
         setStudents(data);
         setLoading(false);
       });
 
-    fetch(`student-management-system-backend-production.up.railway.app/teachers/attendance?date=${today}`)
+    fetch(`https://student-management-system-backend-production.up.railway.app/teachers/attendance?date=${today}`)
       .then(res => res.json())
       .then(data => {
         const status = {};
@@ -32,8 +32,8 @@ export default function TeacherAttendancePage() {
     try {
       const endpoint =
         action === 'checkin'
-          ? 'student-management-system-backend-production.up.railway.app/teachers/attendance/check-in'
-          : 'student-management-system-backend-production.up.railway.app/teachers/attendance/check-out';
+          ? 'https://student-management-system-backend-production.up.railway.app/teachers/attendance/check-in'
+          : 'https://student-management-system-backend-production.up.railway.app/teachers/attendance/check-out';
 
       const res = await fetch(endpoint, {
         method: 'POST',

@@ -46,7 +46,7 @@ export default function EnrollStudentForm({ classId }) {
 
     try {
       const response = await axios.post(
-        `student-management-system-backend-production.up.railway.app/teachers/students`,
+        `https://student-management-system-backend-production.up.railway.app/teachers/students`,
         formData
       );
       setSuccessMsg('Student enrolled successfully!');

@@ -16,7 +16,7 @@ export default function StudentResultsPage() {
       return;
     }
 
-    fetch(`student-management-system-backend-production.up.railway.app/students/${studentId}`)
+    fetch(`https://student-management-system-backend-production.up.railway.app/students/${studentId}`)
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch results");
         return res.json();

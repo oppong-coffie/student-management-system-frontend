@@ -6,7 +6,7 @@ const StudentStudyResources = () => {
  // START:: Fetch all study resources
  const fetchMaterials = async () => {
   try {
-    const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/study-materials");
+    const res = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/study-materials");
     console.log("API response:", res.data);
     setMaterials(res.data);
   } catch (err) {

@@ -11,8 +11,8 @@ export default function EditableResultsTable() {
     const fetchData = async () => {
       try {
         const [studentsRes, savedResultsRes] = await Promise.all([
-          axios.get('student-management-system-backend-production.up.railway.app/teachers/students'),
-          axios.get('student-management-system-backend-production.up.railway.app/teachers/results'),
+          axios.get('https://student-management-system-backend-production.up.railway.app/teachers/students'),
+          axios.get('https://student-management-system-backend-production.up.railway.app/teachers/results'),
         ]);
 
         const studentsData = studentsRes.data;
@@ -72,7 +72,7 @@ export default function EditableResultsTable() {
     console.log('Saving this to backend:', formattedResults);
 
     try {
-      const res = await fetch('student-management-system-backend-production.up.railway.app/teachers/save-results', {
+      const res = await fetch('https://student-management-system-backend-production.up.railway.app/teachers/save-results', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formattedResults),

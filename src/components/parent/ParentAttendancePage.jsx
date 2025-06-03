@@ -31,7 +31,7 @@ export default function ParentAttendancePage() {
     try {
       const query = selectedDate ? `?date=${selectedDate}` : "";
       const res = await fetch(
-        `student-management-system-backend-production.up.railway.app/parents/attendance/${childId}${query}`
+        `https://student-management-system-backend-production.up.railway.app/parents/attendance/${childId}${query}`
       );
       const data = await res.json();
 

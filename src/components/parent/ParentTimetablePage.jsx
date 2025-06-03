@@ -13,7 +13,7 @@ const ParentTimetablePage = () => {
   useEffect(() => {
     const fetchTimetable = async () => {
       try {
-        const res = await axios.get(`student-management-system-backend-production.up.railway.app/teachers/timetable`);
+        const res = await axios.get(`https://student-management-system-backend-production.up.railway.app/teachers/timetable`);
         setTimetable(res.data.timetable || {});
       } catch (err) {
         console.error('Failed to fetch timetable:', err);

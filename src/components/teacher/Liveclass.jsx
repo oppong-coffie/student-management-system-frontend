@@ -10,7 +10,7 @@ export default function LiveClassesPage() {
   useEffect(() => {
     const fetchLiveClasses = async () => {
       try {
-        const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/live-classes");
+        const res = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/live-classes");
         setLiveClasses(res.data);
       } catch (error) {
         console.error("Error fetching live classes:", error.message);
@@ -27,7 +27,7 @@ export default function LiveClassesPage() {
     setDeletingId(id);
 
     try {
-      await axios.delete(`student-management-system-backend-production.up.railway.app/teachers/live-classes/${id}`);
+      await axios.delete(`https://student-management-system-backend-production.up.railway.app/teachers/live-classes/${id}`);
       setLiveClasses((prev) => prev.filter((cls) => cls._id !== id));
       alert("Live class deleted.");
     } catch (error) {

@@ -9,14 +9,14 @@ export default function StudyMaterialsPage() {
   const [editData, setEditData] = useState({ title: "", description: "", subject: "" });
 
   const fetchMaterials = async () => {
-    const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/study-materials");
+    const res = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/study-materials");
     console.log("API response:", res.data);
     setMaterials(res.data);
   };  
 
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this material?")) {
-      await axios.delete(`student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`);
+      await axios.delete(`https://student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`);
       fetchMaterials();
     }
   };
@@ -36,7 +36,7 @@ export default function StudyMaterialsPage() {
   };
 
   const handleUpdate = async (id) => {
-    await axios.put(`student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`, editData);
+    await axios.put(`https://student-management-system-backend-production.up.railway.app/teachers/study-materials/${id}`, editData);
     setEditingId(null);
     fetchMaterials();
   };

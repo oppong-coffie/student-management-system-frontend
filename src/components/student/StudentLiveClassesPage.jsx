@@ -8,7 +8,7 @@ export default function StudentLiveClassesPage() {
   useEffect(() => {
     const fetchLiveClasses = async () => {
       try {
-        const res = await axios.get("student-management-system-backend-production.up.railway.app/teachers/live-classes");
+        const res = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/live-classes");
         setLiveClasses(res.data);
       } catch (error) {
         console.error("Error fetching live classes:", error.message);

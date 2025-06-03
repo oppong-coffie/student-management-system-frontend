@@ -32,7 +32,7 @@ export default function Assignments() {
 
   const fetchAssignments = async () => {
     try {
-      const response = await axios.get("student-management-system-backend-production.up.railway.app/teachers/getassignments");
+      const response = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/getassignments");
       setAssignments(response.data);
     } catch (error) {
       message.error("Failed to load assignments.");
@@ -86,7 +86,7 @@ export default function Assignments() {
         console.log("Assignment ID:", selectedAssignment._id);
         console.log("Score:", score);
     
-        await axios.post("student-management-system-backend-production.up.railway.app/students/submit", {
+        await axios.post("https://student-management-system-backend-production.up.railway.app/students/submit", {
           studentId: student.id,
           studentName: student.name,
           assignmentId: selectedAssignment._id,
