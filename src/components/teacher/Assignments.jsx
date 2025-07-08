@@ -21,14 +21,24 @@ export default function Assignments() {
   const [issubmitModalOpen, setIssubmitModalOpen] = useState(false);
   const [modalType, setModalType] = useState("create");
   const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [newAssignment, setNewAssignment] = useState({ title: "", dueDate: "", questions: [] });
-  const [newQuestion, setNewQuestion] = useState({ question: "", options: ["", "", "", ""], correctOption: "" });
-
+  const [newAssignment, setNewAssignment] = useState({
+    title: "",
+    dueDate: "",
+    questions: []
+  });
+  
+  const [newQuestion, setNewQuestion] = useState({
+    question: "",
+    options: ["", "", "", ""],
+    correctOption: ""
+  });
+  
   useEffect(() => {
     fetchAssignments();
   }, []);
 
-  const fetchAssignments = async () => {
+  // START:: get Assignments  
+   const fetchAssignments = async () => {
     try {
       const response = await fetch("https://student-management-system-backend-production.up.railway.app/teachers/getassignments");
       const data = await response.json();
@@ -37,6 +47,8 @@ export default function Assignments() {
       message.error("Failed to fetch assignments");
     }
   };
+    // END:: get Assignments  
+
 
   const openCreateModal = () => {
     setModalType("create");
@@ -78,7 +90,21 @@ export default function Assignments() {
     setNewAssignment({ ...newAssignment, questions: updatedQuestions });
   };
 
+// START:: Edit/Create Assignment
   const handleSave = async () => {
+    
+    console.log(newAssignment);
+    if (
+      newQuestion.question.trim() &&
+      newQuestion.correctOption &&
+      newQuestion.options.every(opt => opt.trim())
+    ) {
+      setNewAssignment(prev => ({
+        ...prev,
+        questions: [...prev.questions, newQuestion]
+      }));
+      setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
+    }
     try {
       const method = modalType === "edit" ? "PUT" : "POST";
       const url = modalType === "edit"
@@ -100,6 +126,7 @@ export default function Assignments() {
     }
   };
 
+// START:: Delete Assignment
   const deleteAssignment = async (id) => {
     try {
       await axios.delete(`https://student-management-system-backend-production.up.railway.app/teachers/deleteassignments/${id}`);
@@ -109,6 +136,10 @@ export default function Assignments() {
       message.error("Failed to delete assignment");
     }
   };
+// END:: Delete Assignment
+
+
+
 
   return (
     <div className="p-6 bg-white rounded-lg shadow">
@@ -266,16 +297,25 @@ export default function Assignments() {
         </Select>
 
         <Button
-          onClick={addQuestion}
-          className="bg-blue-500 text-white w-full mt-2"
-          disabled={
-            !newQuestion.question ||
-            !newQuestion.correctOption ||
-            newQuestion.options.some(opt => !opt.trim())
-          }
-        >
-          Add Another Question
-        </Button>
+  onClick={() => {
+    if (
+      newQuestion.question.trim() !== "" &&
+      newQuestion.correctOption &&
+      newQuestion.options.every(opt => opt.trim() !== "")
+    ) {
+      setNewAssignment(prev => ({
+        ...prev,
+        questions: [...prev.questions, newQuestion]
+      }));
+      setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
+    } else {
+      message.error("Please complete the question and all options.");
+    }
+  }}
+>
+  Add Another Question
+</Button>
+
       </Modal>
 
       {/* Submission Modal */}
