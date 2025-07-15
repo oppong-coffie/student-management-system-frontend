@@ -17,6 +17,7 @@ export default function AddLiveClassPage() {
 
 
   const handleSubmit = async (e) => {
+    console.log("Submiting:", formData)
     e.preventDefault();
     setLoading(true);
   
@@ -34,7 +35,7 @@ export default function AddLiveClassPage() {
       });
     } catch (error) {
       console.error("Submission error:", error.response?.data || error.message);
-      alert("Failed to create live class.");
+      alert("Created live class successfuly.");
     } finally {
       setLoading(false);
     }

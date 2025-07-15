@@ -91,40 +91,54 @@ export default function Assignments() {
   };
 
 // START:: Edit/Create Assignment
-  const handleSave = async () => {
-    
-    console.log(newAssignment);
-    if (
-      newQuestion.question.trim() &&
-      newQuestion.correctOption &&
-      newQuestion.options.every(opt => opt.trim())
-    ) {
-      setNewAssignment(prev => ({
-        ...prev,
-        questions: [...prev.questions, newQuestion]
-      }));
-      setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
-    }
-    try {
-      const method = modalType === "edit" ? "PUT" : "POST";
-      const url = modalType === "edit"
-        ? `https://student-management-system-backend-production.up.railway.app/teachers/editassignments/${selectedAssignment._id}`
-        : "https://student-management-system-backend-production.up.railway.app/teachers/postassignments";
+const handleSave = async () => {
+  console.log('saving');
+  // ✅ Construct the full assignment payload manually
+  let assignmentToSave = { ...newAssignment };
 
-      await axios({
-        method,
-        url,
-        data: newAssignment,
-        headers: { "Content-Type": "application/json" }
-      });
+  if (
+    newQuestion.question.trim() &&
+    newQuestion.correctOption &&
+    newQuestion.options.every(opt => opt.trim())
+  ) {
+    assignmentToSave.questions = [
+      ...assignmentToSave.questions,
+      newQuestion
+    ];
+  }
 
-      message.success("Assignment saved successfully");
-      fetchAssignments();
-      setIsModalOpen(false);
-    } catch (error) {
-      message.error("Failed to save assignment");
-    }
-  };
+  console.log("Payload to send:", assignmentToSave); // ✅ See final payload
+
+  try {
+    const method = modalType === "edit" ? "PUT" : "POST";
+    const url = modalType === "edit"
+      ? `https://student-management-system-backend-production.up.railway.app/editassignments/${selectedAssignment._id}`
+      : "https://student-management-system-backend-production.up.railway.app/postassignments";
+
+    const response = await axios({
+      method,
+      url,
+      data: assignmentToSave,
+      headers: { "Content-Type": "application/json" }
+    });
+
+    console.log("Axios response:", response.data);
+    message.success("Assignment saved successfully");
+
+    fetchAssignments();
+    setIsModalOpen(false);
+
+    // Clear form
+    setNewAssignment({ title: "", dueDate: "", questions: [], submissions: [] });
+    setNewQuestion({ question: "", options: ["", "", "", ""], correctOption: "" });
+
+  } catch (error) {
+    console.error("❌ Error saving assignment:", error);
+    message.error("Failed to save assignment");
+  }
+};
+
+
 
 // START:: Delete Assignment
   const deleteAssignment = async (id) => {
