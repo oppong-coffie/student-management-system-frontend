@@ -112,8 +112,8 @@ const handleSave = async () => {
   try {
     const method = modalType === "edit" ? "PUT" : "POST";
     const url = modalType === "edit"
-      ? `https://student-management-system-backend-production.up.railway.app/editassignments/${selectedAssignment._id}`
-      : "https://student-management-system-backend-production.up.railway.app/postassignments";
+      ? `https://student-management-system-backend-production.up.railway.app/teachers/editassignments/${selectedAssignment._id}`
+      : "https://student-management-system-backend-production.up.railway.app/teachers/postassignments";
 
     const response = await axios({
       method,
