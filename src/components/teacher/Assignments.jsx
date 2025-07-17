@@ -138,8 +138,6 @@ const handleSave = async () => {
   }
 };
 
-
-
 // START:: Delete Assignment
   const deleteAssignment = async (id) => {
     try {
