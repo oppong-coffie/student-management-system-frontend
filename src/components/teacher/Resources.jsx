@@ -105,7 +105,7 @@ export default function StudyMaterialsPage() {
             <p className="text-sm text-yellow-700 font-medium mb-1">Subject: {mat.subject}</p>
             <p className="text-gray-700 text-sm mb-3">{mat.description}</p>
             <a
-              href={`student-management-system-backend-production.up.railway.app${mat.fileUrl}`}
+              href={mat.fileUrl}
               target="_blank"
               rel="noreferrer"
               className="text-blue-600 underline text-sm"

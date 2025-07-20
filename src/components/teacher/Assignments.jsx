@@ -27,11 +27,13 @@ export default function Assignments() {
     questions: []
   });
   
-  const [newQuestion, setNewQuestion] = useState({
-    question: "",
-    options: ["", "", "", ""],
-    correctOption: ""
-  });
+  const [newQuestion, setNewQuestion] = useState(
+    {
+      question: "Sample?",
+      options: ["A", "B", "C", "D "],
+      correctOption: null // not ""
+    }
+);
   
   useEffect(() => {
     fetchAssignments();
@@ -258,18 +260,19 @@ const handleSave = async () => {
                     className="mt-2"
                   />
                 ))}
-                <Select
-                  placeholder="Correct Option"
-                  value={q.correctOption}
-                  onChange={(value) => updateQuestion(index, "correctOption", value)}
-                  className="mt-2 w-full"
-                >
-                  {q.options.map((opt, i) => (
-                    <Option key={i} value={opt}>
-                      {opt}
-                    </Option>
-                  ))}
-                </Select>
+                
+<Select
+  placeholder="Correct Option"
+  value={q.correctOption || undefined} // important
+  onChange={(value) => updateQuestion(index, "correctOption", value)}
+>
+  {q.options.map((opt, i) => (
+    <Option key={i} value={opt}>
+      {opt}
+    </Option>
+  ))}
+  
+</Select>
               </div>
             </List.Item>
           )}
