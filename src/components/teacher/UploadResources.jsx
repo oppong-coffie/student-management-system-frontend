@@ -32,7 +32,7 @@ export default function AddStudyMaterial() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:8080/teachers/upload-resource", {
+      const response = await fetch("https://student-management-system-backend-production.up.railway.app/teachers/upload-resource", {
         method: "POST",
         body: formData,
       });
