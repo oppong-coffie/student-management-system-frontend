@@ -45,7 +45,7 @@ useEffect(() => {
 
               <div className="w-full flex justify-center">
   <a
-    href={`student-management-system-backend-production.up.railway.app${mat.fileUrl}`}
+    href={mat.fileUrl}
     target="_blank"
     rel="noreferrer"
     className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2 rounded-md shadow transition duration-200"
