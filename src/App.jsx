@@ -30,6 +30,7 @@ import './App.css';
 import TeacherLiveClasses from "./components/teacher/Liveclass.jsx";
 import TeacherAddLiveClasses from "./components/teacher/Addliveclass.jsx";
 import TeacherAttendancePage from "./components/teacher/TeacherAttendancePage.jsx";
+import Theory from "./components/teacher/theory.jsx";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
       <Route path="notifications" element={<Notifications  />} />
       <Route path="results" element={<Results  />} />
       <Route path="attendance" element={<TeacherAttendancePage />} />
+      <Route path="theory" element={<Theory />} />
     </Route>
 
     {/* Student Dashboard with Nested Routes */}

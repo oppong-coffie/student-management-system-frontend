@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import {
   Table,
   Input,
@@ -50,7 +52,6 @@ export default function Assignments() {
     }
   };
     // END:: get Assignments  
-
 
   const openCreateModal = () => {
     setModalType("create");
@@ -221,6 +222,9 @@ const handleSave = async () => {
         onOk={handleSave}
         width={800}
       >
+        <Link to="/dashboard/teacher/results">
+            <Button className="mt-4 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] transition text-red-500 text-end">Upload</Button>
+          </Link>
         <Input
           placeholder="Assignment Title"
           value={newAssignment.title}

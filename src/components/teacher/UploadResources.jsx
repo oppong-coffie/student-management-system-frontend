@@ -87,6 +87,7 @@ export default function AddStudyMaterial() {
           <option value="math">Math</option>
           <option value="science">Science</option>
           <option value="history">History</option>
+          <option value="english">English</option>
         </select>
 
         <div className="border-dashed border-2 p-4 rounded text-center">

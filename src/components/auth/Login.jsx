@@ -36,11 +36,6 @@ export default function Login() {
         // ✅ Destructure role from result
         const { id, name, email, role, indexnumber } = result;
 
-        if (!role) {
-            alert("Role not assigned to this user.");
-            return;
-        }
-
         // ✅ Store user details in localStorage
         localStorage.setItem("user", JSON.stringify({ id, name, email, role, indexnumber }));
 
