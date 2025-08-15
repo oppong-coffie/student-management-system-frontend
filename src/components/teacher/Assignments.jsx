@@ -19,6 +19,7 @@ export default function Assignments() {
   const { Option } = Select;
 
   const [assignments, setAssignments] = useState([]);
+  const [theory, setTheory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [issubmitModalOpen, setIssubmitModalOpen] = useState(false);
   const [modalType, setModalType] = useState("create");
@@ -39,7 +40,28 @@ export default function Assignments() {
   
   useEffect(() => {
     fetchAssignments();
+    fetchTheory();
   }, []);
+
+  // START:: get THEORIES  
+  const fetchTheory = async () => {
+    try {
+      const response = await fetch("https://student-management-system-backend-production.up.railway.app/teachers/theory", {
+        method: "GET",
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      setTheory(data);
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+      message.error("Failed to fetch assignments");
+    }
+  };
+  
 
   // START:: get Assignments  
    const fetchAssignments = async () => {
@@ -153,6 +175,18 @@ const handleSave = async () => {
   };
 // END:: Delete Assignment
 
+// START:: Delete Theory
+  const deleteTheory = async (id) => {
+    try {
+      await axios.delete(`https://student-management-system-backend-production.up.railway.app/teachers/theory/${id}`);
+      message.success("Assignment deleted successfully");
+      setTheory(prev => prev.filter(item => item._id !== id));
+    } catch (error) {
+      message.error("Failed to delete assignment");
+    }
+  };
+// END:: Delete Theory
+
 
 
 
@@ -164,6 +198,8 @@ const handleSave = async () => {
           + Create Assignment
         </Button>
       </div>
+
+ 
 
       <Table
         columns={[
@@ -212,6 +248,61 @@ const handleSave = async () => {
         pagination={{ pageSize: 5 }}
       />
 
+      <h1>Theory Assigments</h1>
+      <Table
+        columns={[
+          { title: "Title", dataIndex: "title", key: "title" },
+          {
+            title: "Due Date",
+            dataIndex: "dueDate",
+            key: "dueDate",
+            render: (date) => new Date(date).toLocaleDateString()
+          },
+          {
+            title: "Submissions",
+            dataIndex: "submissions",
+            key: "submissions",
+            render: (_, record) => (
+              <span className="text-blue-600 cursor-pointer" onClick={() => openSubmitModal(record)}>
+                {record.submissions?.length || 0}
+              </span>
+            )
+          },
+          {
+            title: "Actions",
+            key: "actions",
+            render: (_, record) => (
+              <div className="flex space-x-4">
+                
+                <Link to={`/dashboard/teacher/viewtheory/${record._id}`}>
+  <Button type="link" className="text-blue-600">
+    View
+  </Button>
+</Link>
+                <Link to={`/dashboard/teacher/edittheory/${record._id}`}>
+  <Button type="link" className="text-blue-600">
+    Edit
+  </Button>
+</Link>
+
+                <Popconfirm
+                  title="Are you sure to delete this assignment?"
+                  onConfirm={() => deleteTheory(record._id)}
+                >
+                  <Button type="link" danger>
+                    Delete
+                  </Button>
+                </Popconfirm>
+              </div>
+            )
+          }
+        ]}
+        dataSource={theory}
+        rowKey="_id"
+        pagination={{ pageSize: 5 }}
+      />
+
+      {/* CREATE ASSIGNMENTS MODAL */}
       <Modal
         title={modalType === "edit" ? "Edit Assignment" : "Create Assignment"}
         open={isModalOpen}
@@ -222,9 +313,12 @@ const handleSave = async () => {
         onOk={handleSave}
         width={800}
       >
-        <Link to="/dashboard/teacher/results">
-            <Button className="mt-4 bg-[#FFD700] text-[#1C2D6B] hover:bg-[#FFC107] transition text-red-500 text-end">Upload</Button>
+        <div className="text-end mb-5">
+          <Link to="/dashboard/teacher/theory">
+            <Button type="primary" className="hover:bg-[#FFC107] transition text-end ">Create Theory Questions</Button>
           </Link>
+        </div>
+        
         <Input
           placeholder="Assignment Title"
           value={newAssignment.title}

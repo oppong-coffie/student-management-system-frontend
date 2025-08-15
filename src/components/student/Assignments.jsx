@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Radio, Spin, message } from "antd";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Assignments() {
   const [assignments, setAssignments] = useState([]);
+  const [theory, setTheory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [answers, setAnswers] = useState({});
@@ -28,12 +30,25 @@ export default function Assignments() {
 
   useEffect(() => {
     fetchAssignments();
+    fetchTheory()
   }, []);
 
   const fetchAssignments = async () => {
     try {
       const response = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/getassignments");
       setAssignments(response.data);
+    } catch (error) {
+      message.error("Failed to load assignments.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // GET THEORY ASSIGNMENTS
+  const fetchTheory = async () => {
+    try {
+      const response = await axios.get("https://student-management-system-backend-production.up.railway.app/teachers/theory");
+      setTheory(response.data);
     } catch (error) {
       message.error("Failed to load assignments.");
     } finally {
@@ -131,6 +146,41 @@ export default function Assignments() {
                 >
                   Open
                 </Button>
+              </div>
+            ))
+        ) : (
+          <p>No assignments available.</p>
+        )}
+      </div>
+      
+      )}
+
+
+      <h1>Theory Assignments</h1>
+      {loading ? (
+        <Spin size="large" />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {theory.length > 0 ? (
+          theory
+            .filter(assignment => !assignment.submissions.some(sub => sub.studentId === user?.id)) // ✅ Filter out submitted assignments
+            .map((assignment) => (
+              <div key={assignment._id} className="p-4 border rounded-lg shadow">
+                <h2 className="text-lg font-semibold">{assignment.title}</h2>
+                <p className="text-gray-500">Due: {assignment.dueDate}</p>
+
+                <Link
+  to={`/dashboard/student/dotheory/${assignment._id}?studentid=${student.id}`}
+>
+  <Button
+    type="primary"
+    className="mt-4 bg-[#FFD700] text-[#1C2D6B]"
+    onClick={() => openAssignment(assignment)}
+  >
+    Open
+  </Button>
+</Link>
+
               </div>
             ))
         ) : (

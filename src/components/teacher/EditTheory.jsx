@@ -1,31 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
-import { Input, Button, DatePicker, List, message, Card, Divider, Space, Typography,} from "antd";
-import { PlusOutlined, FormOutlined, DeleteOutlined,} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
-const { Title, Text } = Typography;
+import { useParams } from "react-router-dom";
+import {
+  Input,
+  Button,
+  DatePicker,
+  List,
+  message,
+  Card,
+  Space,
+  Typography,
+} from "antd";
+import {
+  PlusOutlined,
+  FormOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+
+const { Text } = Typography;
+
 
 const Theory = () => {
+    const navigate = useNavigate();
+
+  const { id } = useParams(); // ✅ Get assignment ID from URL
+  const [loading, setLoading] = useState(false);
   const [newAssignment, setNewAssignment] = useState({
     title: "",
     dueDate: "",
     questions: [],
     submissions: [],
   });
-  const navigate = useNavigate();
 
   const [newQuestion, setNewQuestion] = useState({
     question: "",
     correctAnswer: "",
   });
 
-  const [selectedAssignment, setSelectedAssignment] = useState(null);
-
-  const fetchAssignments = async () => {
-    console.log("Fetching assignments...");
+  // ✅ Fetch the assignment data by ID
+  const fetchAssignment = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`https://student-management-system-backend-production.up.railway.app/teachers/theory/${id}`);
+      setNewAssignment(res.data); // Set fetched data into state
+    } catch (error) {
+      console.error("Error fetching assignment:", error);
+      message.error("Failed to fetch assignment");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (id) {
+      fetchAssignment();
+    }
+  }, [id]);
 
   const updateQuestion = (index, field, value) => {
     const updatedQuestions = [...newAssignment.questions];
@@ -33,71 +66,53 @@ const Theory = () => {
     setNewAssignment({ ...newAssignment, questions: updatedQuestions });
   };
 
-  const deleteQuestion = async (index) => {
+  const deleteQuestion = (index) => {
+    const updatedQuestions = newAssignment.questions.filter(
+      (_, i) => i !== index
+    );
+    setNewAssignment({ ...newAssignment, questions: updatedQuestions });
+  };
+
+  const handleSave = async () => {
     try {
-      const updatedQuestions = newAssignment.questions.filter((_, i) => i !== index);
+      setLoading(true);
   
-      // Update locally first for instant UI feedback
-      setNewAssignment({ ...newAssignment, questions: updatedQuestions });
+      // Merge state-based changes
+      let updatedQuestions = [...newAssignment.questions];
+      if (newQuestion.question.trim() && newQuestion.correctAnswer.trim()) {
+        updatedQuestions.push(newQuestion);
+      }
   
-      // Persist to backend
+      updatedQuestions = updatedQuestions.filter(
+        q => q.question.trim() && q.correctAnswer.trim()
+      );
+  
+      const assignmentToSave = {
+        ...newAssignment,
+        questions: updatedQuestions,
+      };
+  
       await axios.put(
         `https://student-management-system-backend-production.up.railway.app/teachers/theory/${newAssignment._id}`,
-        { ...newAssignment, questions: updatedQuestions },
+        assignmentToSave,
         { headers: { "Content-Type": "application/json" } }
       );
   
-      message.success("Question deleted successfully");
+      
+    message.success("Assignment updated successfully");
+
+    // ✅ Redirect after save
+    navigate("/dashboard/teacher/assignments");
+
     } catch (error) {
-      console.error("Error deleting question:", error);
-      message.error("Failed to delete question");
+      console.error("Error updating assignment:", error);
+      message.error("Failed to update assignment");
+    } finally {
+      setLoading(false);
     }
   };
   
-
-  const handleSave = async () => {
-    let assignmentToSave = { ...newAssignment };
-
-    if (newQuestion.question.trim() && newQuestion.correctAnswer.trim()) {
-      assignmentToSave.questions = [
-        ...assignmentToSave.questions,
-        newQuestion,
-      ];
-    }
-
-    try {
-      const method = selectedAssignment ? "PUT" : "POST";
-      const url = selectedAssignment
-        ? `https://student-management-system-backend-production.up.railway.app/teachers/theory/${selectedAssignment._id}`
-        : "https://student-management-system-backend-production.up.railway.app/teachers/theory";
-
-      await axios({
-        method,
-        url,
-        data: assignmentToSave,
-        headers: { "Content-Type": "application/json" },
-      });
-
-      message.success("Assignment saved successfully");
-      navigate('/dashboard/teacher/assignments');
-
-
-      setNewAssignment({
-        title: "",
-        dueDate: "",
-        questions: [],
-        submissions: [],
-      });
-      setNewQuestion({
-        question: "",
-        correctAnswer: "",
-      });
-    } catch (error) {
-      console.error("Error saving assignment:", error);
-      message.error("Failed to save assignment");
-    }
-  };
-
+  
 
   return (
     <div style={{ padding: 20, maxWidth: 900, margin: "auto" }}>
@@ -108,7 +123,7 @@ const Theory = () => {
           <Space>
             <FormOutlined />
             <Text strong style={{ fontSize: 16 }}>
-              {selectedAssignment ? "Edit Assignment" : "Create Assignment"}
+              Edit Assignment
             </Text>
           </Space>
         }
@@ -209,7 +224,7 @@ const Theory = () => {
         </Space>
       </Card>
 
-      <Button type="primary" onClick={handleSave} block>
+      <Button type="primary" onClick={handleSave} block loading={loading}>
         Save Assignment
       </Button>
     </div>
